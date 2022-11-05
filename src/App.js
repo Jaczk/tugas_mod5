@@ -10,7 +10,7 @@ import axios from "axios";
 import { AddCircle } from "@mui/icons-material";
 import AddUserDialog from "./components/AddUserDialog";
 
-const BASE_API_URL = `https://reqres.in/api`;
+const BASE_API_URL = `https://dummyjson.com`;
 
 function App() {
   const [users, setUsers] = useState([]);
@@ -29,7 +29,7 @@ function App() {
           }
         })
         .then((res) => {
-          const responseData = res.data.data;
+          const responseData = res.data.users;
           setUsers(responseData);
         })
         .catch((error) => {
@@ -85,8 +85,8 @@ function App() {
             {users.map((d, idx) => (
               <ListItemUser
                 key={d.id}
-                image={d.avatar}
-                primaryText={`${d.first_name} ${d.last_name}`}
+                image={d.image}
+                primaryText={`${d.firstName} ${d.lastName}`}
                 secondaryText={`Email: ${d.email}`}
                 onDelete={() => handleDeleteUser(d.id, idx)}
               />
@@ -94,7 +94,7 @@ function App() {
             {newUsers.map((d) => (
               <ListItemUser
                 key={d.id}
-                image={d.avatar}
+                image={d.image}
                 primaryText={d.name}
                 secondaryText={`Job: ${d.job}`}
               />
