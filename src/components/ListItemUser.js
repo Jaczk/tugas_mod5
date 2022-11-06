@@ -1,21 +1,18 @@
 import { Delete } from "@mui/icons-material";
 import {
-  Avatar,
-  Icon,
   IconButton,
   ListItem,
-  ListItemAvatar,
   ListItemText,
   Typography
 } from "@mui/material";
 import React from "react";
 
-function ListItemUser({ image, primaryText, secondaryText, onDelete }) {
+function ListItemUser({ primaryText, secondaryText, onDelete }) {
   return (
     <ListItem>
-      <ListItemAvatar sx={{ marginRight: 2 }}>
+      {/* <ListItemAvatar sx={{ marginRight: 2 }}>
         <Avatar alt="avatar" src={image} sx={{ width: 75, height: 75 }} />
-      </ListItemAvatar>
+      </ListItemAvatar> */}
       <ListItemText
         primary={<Typography variant="h6">{primaryText}</Typography>}
         secondary={<Typography variant="p">{secondaryText}</Typography>}

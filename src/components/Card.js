@@ -7,24 +7,24 @@ import { Delete } from "@mui/icons-material";
 import { CardActionArea } from '@mui/material';
 import IconButton from '@mui/material/IconButton';
 
-export default function ActionAreaCard({ image, firstName, lastName, height, onDelete }) {
+export default function ActionAreaCard({ name, salary, age, onDelete }) {
     return (
         <Card sx={{ maxWidth: 345 }}>
             <CardActionArea>
-                <CardMedia
+                {/* <CardMedia
                     component="img"
                     height="140"
                     src={image}
                     alt="green iguana"
-                />
+                /> */}
                 <CardContent>
                     <Typography gutterBottom variant="h5" component="div">
-                        {firstName}
+                        {name}
                     </Typography>
                     <Typography variant="body2" color="text.secondary">
-                        {firstName} + {lastName}
+                        Salary: ${salary} 
                         <br />
-                        {height}
+                        {age} years old
                     </Typography>
                     <IconButton onClick={onDelete}>
                         <Delete />

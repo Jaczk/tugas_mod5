@@ -11,7 +11,7 @@ import { AddCircle } from "@mui/icons-material";
 import AddUserDialog from "./components/AddUserDialog";
 import Card from "./components/Card.js";
 
-const BASE_API_URL = `https://valorant-api.com/v1/agents`;
+const BASE_API_URL = `https://dummy.restapiexample.com/api/v1/employees`;
 
 function App() {
   const [users, setUsers] = useState([]);
@@ -40,7 +40,7 @@ function App() {
   const handleDeleteUser = (userId, idx) => {
     async function delUser() {
       await axios
-        .delete(`${BASE_API_URL}/${userId}`)
+        .delete(`${BASE_API_URL}/{${userId}}`)
         .then((res) => {
           console.log(userId);
           console.log(idx);
@@ -65,19 +65,16 @@ function App() {
         <div className="list-title-wrapper">
           <Typography variant="h4">List User</Typography>
         </div>
-        
 
-          {users.slice(0, 5).map((d, idx) => (
-            <Card
-              key={d.uuid}
-              image={d.displayIcon}
-              firstName={d.displayName}
-              lastName={d.developerName}
-              height={d.description}
-              onDelete={handleDeleteUser(d.uuid, idx)}
-            />
-          ))}
-
+        {users.slice(0, 6).map((d, idx) => (
+          <Card
+            key={d.id}
+            name={d.employee_name}
+            salary={d.employee_salary}
+            age={d.employee_age}
+            onDelete={handleDeleteUser(d.id, idx)}
+          />
+        ))}
         
       </div>
     </div>
