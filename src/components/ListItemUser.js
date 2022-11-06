@@ -1,22 +1,25 @@
 import { Delete } from "@mui/icons-material";
 import {
-  IconButton,
+  Avatar,
   ListItem,
+  ListItemAvatar,
   ListItemText,
-  Typography
+  Typography,
+  IconButton
 } from "@mui/material";
 import React from "react";
 
-function ListItemUser({ primaryText, secondaryText, onDelete }) {
+function ListItemProducts({ image, primaryText, secondaryText, rating, onDelete }) {
   return (
     <ListItem>
-      {/* <ListItemAvatar sx={{ marginRight: 2 }}>
+      <ListItemAvatar sx={{ marginRight: 2 }}>
         <Avatar alt="avatar" src={image} sx={{ width: 75, height: 75 }} />
-      </ListItemAvatar> */}
+      </ListItemAvatar>
       <ListItemText
         primary={<Typography variant="h6">{primaryText}</Typography>}
         secondary={<Typography variant="p">{secondaryText}</Typography>}
       />
+      <Typography variant="h8">{rating}</Typography>
       <IconButton onClick={onDelete}>
         <Delete />
       </IconButton>
@@ -24,4 +27,4 @@ function ListItemUser({ primaryText, secondaryText, onDelete }) {
   );
 }
 
-export default ListItemUser;
+export default ListItemProducts;

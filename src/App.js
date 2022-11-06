@@ -3,30 +3,24 @@ import "@fontsource/roboto/300.css";
 import "@fontsource/roboto/400.css";
 import "@fontsource/roboto/500.css";
 import "@fontsource/roboto/700.css";
-import { Button, IconButton, List, Paper, Typography } from "@mui/material";
+import { IconButton, List, Paper, Typography } from "@mui/material";
 import ListItemUser from "./components/ListItemUser";
 import { useEffect, useState } from "react";
 import axios from "axios";
-import { AddCircle } from "@mui/icons-material";
-import AddUserDialog from "./components/AddUserDialog";
-import Card from "./components/Card.js";
 
-const BASE_API_URL = `https://dummy.restapiexample.com/api/v1/employees`;
+
+const BASE_API_URL = `https://dummyjson.com`;
 
 function App() {
-  const [users, setUsers] = useState([]);
-  const [limit, setLimit] = useState(10);
-  const [skip, setSkip] = useState(0);
-
-  console.log(users);
+  const [products, setProducts] = useState([]);
 
   useEffect(() => {
-    async function getUsers() {
+    async function getProducts() {
       await axios
-        .get(`${BASE_API_URL}`)
+        .get(`${BASE_API_URL}/products/category/laptops`)
         .then((res) => {
-          const responseData = res.data.data;
-          setUsers(responseData);
+          const responseData = res.data.products;
+          setProducts(responseData);
         })
         .catch((error) => {
           console.log(error);
@@ -34,48 +28,50 @@ function App() {
         });
     }
 
-    getUsers();
+    getProducts();
   }, []);
 
-  const handleDeleteUser = (userId, idx) => {
-    async function delUser() {
+
+  const handleDeleteProducts = (id, idx) => {
+    async function delProducts() {
       await axios
-        .delete(`${BASE_API_URL}/{${userId}}`)
+        .delete(`${BASE_API_URL}/products/${id}`)
         .then((res) => {
-          console.log(userId);
-          console.log(idx);
-          let arr = users;
+          let arr = products;
           if (idx !== -1) {
-            arr.splice(idx, 1);
+            arr.splice(idx, 1)
           }
-          setUsers([...arr]);
+          setProducts([...arr]);
         })
         .catch((error) => {
           console.log(error);
           window.alert(error);
-        });
+        })
     }
 
-    delUser();
+    delProducts();
   };
 
   return (
     <div className="App">
       <div className="list-container">
         <div className="list-title-wrapper">
-          <Typography variant="h4">List User</Typography>
+          <Typography variant="h4">List Laptops</Typography>
         </div>
-
-        {users.slice(0, 6).map((d, idx) => (
-          <Card
-            key={d.id}
-            name={d.employee_name}
-            salary={d.employee_salary}
-            age={d.employee_age}
-            onDelete={handleDeleteUser(d.id, idx)}
-          />
-        ))}
-        
+        <Paper elevation={2} style={{ maxHeight: "700px", overflow: "auto" }}>
+          <List>
+            {products.map((d, idx) => (
+              <ListItemUser
+                key={d.id}
+                image={d.thumbnail}
+                primaryText={`$${d.price} ${d.title}`}
+                secondaryText={`${d.description}`}
+                rating = {`${d.rating}`}
+                onDelete={() => handleDeleteProducts(d.id, idx)}
+              />
+            ))}
+          </List>
+        </Paper>
       </div>
     </div>
   );
