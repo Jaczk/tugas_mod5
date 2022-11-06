@@ -9,27 +9,23 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import { AddCircle } from "@mui/icons-material";
 import AddUserDialog from "./components/AddUserDialog";
+import Card from "./components/Card.js";
 
-const BASE_API_URL = `https://dummyjson.com`;
+const BASE_API_URL = `https://valorant-api.com/v1/agents`;
 
 function App() {
   const [users, setUsers] = useState([]);
-  const [newUsers, setNewUsers] = useState([]);
-  const [isDialogOpen, setIsDialogOpen] = useState(false);
-  const [page, setPage] = useState(1);
+  const [limit, setLimit] = useState(10);
+  const [skip, setSkip] = useState(0);
 
   console.log(users);
 
   useEffect(() => {
     async function getUsers() {
       await axios
-        .get(`${BASE_API_URL}/users`, {
-          params: {
-            page: page
-          }
-        })
+        .get(`${BASE_API_URL}`)
         .then((res) => {
-          const responseData = res.data.users;
+          const responseData = res.data.data;
           setUsers(responseData);
         })
         .catch((error) => {
@@ -39,20 +35,12 @@ function App() {
     }
 
     getUsers();
-  }, [page]);
-
-  const openDialog = () => {
-    setIsDialogOpen(true);
-  };
-
-  const closeDialog = () => {
-    setIsDialogOpen(false);
-  };
+  }, []);
 
   const handleDeleteUser = (userId, idx) => {
     async function delUser() {
       await axios
-        .delete(`${BASE_API_URL}/users/${userId}`)
+        .delete(`${BASE_API_URL}/${userId}`)
         .then((res) => {
           console.log(userId);
           console.log(idx);
@@ -76,47 +64,22 @@ function App() {
       <div className="list-container">
         <div className="list-title-wrapper">
           <Typography variant="h4">List User</Typography>
-          <IconButton onClick={openDialog}>
-            <AddCircle />
-          </IconButton>
         </div>
-        <Paper elevation={2} style={{ maxHeight: "700px", overflow: "auto" }}>
-          <List>
-            {users.map((d, idx) => (
-              <ListItemUser
-                key={d.id}
-                image={d.image}
-                primaryText={`${d.firstName} ${d.lastName}`}
-                secondaryText={`Email: ${d.email}`}
-                onDelete={() => handleDeleteUser(d.id, idx)}
-              />
-            ))}
-            {newUsers.map((d) => (
-              <ListItemUser
-                key={d.id}
-                image={d.image}
-                primaryText={d.name}
-                secondaryText={`Job: ${d.job}`}
-              />
-            ))}
-          </List>
-          <Button
-            onClick={() => setPage((prev) => prev - 1)}
-            disabled={page === 1}
-          >
-            Prev
-          </Button>
-          <Button onClick={() => setPage((prev) => prev + 1)}>Next</Button>
-        </Paper>
+        
+
+          {users.slice(0, 5).map((d, idx) => (
+            <Card
+              key={d.uuid}
+              image={d.displayIcon}
+              firstName={d.displayName}
+              lastName={d.developerName}
+              height={d.description}
+              onDelete={handleDeleteUser(d.uuid, idx)}
+            />
+          ))}
+
+        
       </div>
-      {isDialogOpen && (
-        <AddUserDialog
-          open={isDialogOpen}
-          onClose={closeDialog}
-          users={newUsers}
-          setUsers={setNewUsers}
-        />
-      )}
     </div>
   );
 }
