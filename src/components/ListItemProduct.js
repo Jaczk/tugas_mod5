@@ -1,4 +1,4 @@
-import { Delete } from "@mui/icons-material";
+import { Delete, RoundedCorner } from "@mui/icons-material";
 import {
   Avatar,
   ListItem,
@@ -13,14 +13,14 @@ function ListItemProducts({ image, primaryText, secondaryText, rating, onDelete 
   return (
     <ListItem>
       <ListItemAvatar sx={{ marginRight: 2 }}>
-        <Avatar alt="avatar" src={image} sx={{ width: 75, height: 75 }} />
+        <Avatar variant="square" alt="avatar" src={image} sx={{ width: 75, height: 75  }}/>
       </ListItemAvatar>
       <ListItemText
         primary={<Typography variant="h6">{primaryText}</Typography>}
         secondary={<Typography variant="p">{secondaryText}</Typography>}
       />
-      <Typography variant="h8">{rating}</Typography>
-      <IconButton onClick={onDelete}>
+      <Typography sx={{fontWeight: 'bold'}} variant="h8">{rating}</Typography>
+      <IconButton size="large" onClick={onDelete}>
         <Delete />
       </IconButton>
     </ListItem>

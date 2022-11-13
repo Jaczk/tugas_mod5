@@ -3,8 +3,8 @@ import "@fontsource/roboto/300.css";
 import "@fontsource/roboto/400.css";
 import "@fontsource/roboto/500.css";
 import "@fontsource/roboto/700.css";
-import { IconButton, List, Paper, Typography } from "@mui/material";
-import ListItemUser from "./components/ListItemUser";
+import { Card, IconButton, List, Paper, Typography } from "@mui/material";
+import ListItemProduct from "./components/ListItemProduct";
 import { useEffect, useState } from "react";
 import axios from "axios";
 
@@ -56,12 +56,12 @@ function App() {
     <div className="App">
       <div className="list-container">
         <div className="list-title-wrapper">
-          <Typography variant="h4">List Laptops</Typography>
+          <Typography variant="h4">LaptopList</Typography>
         </div>
-        <Paper elevation={2} style={{ maxHeight: "700px", overflow: "auto" }}>
+        <Card elevation={2} style={{ maxHeight: "700px", overflow: "auto" }}>
           <List>
             {products.map((d, idx) => (
-              <ListItemUser
+              <ListItemProduct
                 key={d.id}
                 image={d.thumbnail}
                 primaryText={`$${d.price} ${d.title}`}
@@ -71,7 +71,7 @@ function App() {
               />
             ))}
           </List>
-        </Paper>
+        </Card>
       </div>
     </div>
   );
