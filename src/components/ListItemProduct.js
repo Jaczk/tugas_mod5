@@ -13,7 +13,7 @@ function ListItemProducts({ image, primaryText, secondaryText, rating, onDelete 
   return (
     <ListItem>
       <ListItemAvatar sx={{ marginRight: 2 }}>
-        <Avatar variant="square" alt="avatar" src={image} sx={{ width: 75, height: 75  }}/>
+        <Avatar variant="circle" alt="avatar" src={image} sx={{ width: 75, height: 75  }}/>
       </ListItemAvatar>
       <ListItemText
         primary={<Typography variant="h6">{primaryText}</Typography>}
